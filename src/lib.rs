@@ -24,6 +24,13 @@ impl MyBox<Unlocked> {
             state: Locked(pin),
         }
     }
+
+    pub fn duplicate(&self) -> MyBox<Unlocked> {
+        MyBox {
+            data: self.data.clone(),
+            state: Unlocked,
+        }
+    }
 }
 
 impl MyBox<Locked> {
@@ -35,6 +42,13 @@ impl MyBox<Locked> {
             })
         } else {
             Err(())
+        }
+    }
+
+    pub fn duplicate(&self) -> MyBox<Locked> {
+        MyBox {
+            data: self.data.clone(),
+            state: Locked(self.state.0),
         }
     }
 }
